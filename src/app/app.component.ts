@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GYMNASTS } from "./mock-gymnasts";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'gymledgerFrontend';
+  gymnasts = GYMNASTS;
+  title = 'GymLedger';
+  constructor(){}
 }

@@ -1,0 +1,15 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title><mat-icon>person</mat-icon>  {{ gymnast.firstName }} {{ gymnast.lastName }}</mat-card-title>
+        <mat-card-subtitle>Born on {{ gymnast.birthDate | date }}</mat-card-subtitle>
+        
+    </mat-card-header>
+    <mat-card-content>
+        <h3 mat-subheader>Blessures:</h3>
+        <mat-list>
+            <mat-list-item *ngFor="let blessure of gymnast.injuries" >
+                <app-injury [name]=blessure></app-injury>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
