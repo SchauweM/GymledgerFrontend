@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Injury } from '../models/injury.model';
 
 @Component({
   selector: 'app-add-injury',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-injury.component.css']
 })
 export class AddInjuryComponent implements OnInit {
-
+  @Output() public newInjury = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit() {
+  }
+
+  addInjury(newInjury: HTMLInputElement): boolean {
+    const injury = newInjury.value;
+    this.newInjury.emit(injury);
+    return false;
   }
 
 }

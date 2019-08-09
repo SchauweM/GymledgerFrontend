@@ -8,7 +8,7 @@ export class Gymnast {
         private _lastName: string,
         private _birthDate: Date,
         private _email: string,
-        private _injuries: Array<string> //nog veranderen naar Injury
+        private _injuries: Array<Injury>
     ){}
 
     get id() { return this._id }
@@ -23,11 +23,11 @@ export class Gymnast {
     set lastName(lastName: string){this._lastName = lastName; }
     set birthDate(birthDate: Date){this._birthDate = birthDate;}
     set email(email: string) {this._email = email; }
-    set injuries(injuries: Array<string>) { this._injuries = injuries }
+    set injuries(injuries: Array<Injury>) { this._injuries = injuries }
     
     
-    addInjury(name: string, amount?: number, unit?: string) {
-        this._injuries.push(`${amount || 1} ${unit || ''} ${name}`);
+    addInjury(newInjury: Injury) {
+        this._injuries.push(newInjury);
       }
     
     static fromJSON(json: any): Gymnast {

@@ -1,3 +1,14 @@
+<div fxLayout="column" fxLayoutGap="2%">
+  <app-add-gymnast (newGymnast)="addGymnast($event)"></app-add-gymnast>
+  <mat-card>
+    <mat-form-field>
+      <input 
+      (keyup)="filterGymnast$.next($event.target.value)"
+      matInput 
+      placeholder="filter" type="text" #filter />
+    </mat-form-field>
+    
+  </mat-card>
 <div
   fxLayout="row wrap"
   fxLayout.xs="column"
@@ -5,11 +16,12 @@
   fxLayoutAlign="start"
 >
   <div
-    class="recipe"
-    *ngFor="let g of gymnasts"
+    class="gymnast"
+    *ngFor="let g of gymnasts | gymnastFilter: filterGymnastName"
     fxFlex="0 0 calc(25%-0.5%)"
     fxFlex.xs="100%"
   >
     <app-gymnast [gymnast]="g"></app-gymnast>
   </div>
+</div>
 </div>
