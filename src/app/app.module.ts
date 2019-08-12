@@ -15,6 +15,7 @@ import { AddGymnastComponent } from './add-gymnast/add-gymnast.component';
 import { TeamComponent } from './team/team.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GymnastFilterPipe } from './gymnast-filter.pipe';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
  
 
 @NgModule({
@@ -40,7 +41,8 @@ import { GymnastFilterPipe } from './gymnast-filter.pipe';
     MatPaginatorModule,
     MatSortModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

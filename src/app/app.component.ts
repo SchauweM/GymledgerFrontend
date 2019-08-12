@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { GYMNASTS } from "./mock-gymnasts";
 import { Gymnast } from './models/gymnast.model';
 import { GymnastDataService } from './gymnast-data.service';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
+import { distinctUntilChanged, debounceTime, map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -13,22 +13,33 @@ export class AppComponent {
   public filterGymnastName: string;
   public filterGymnast$ = new Subject<string>();
 
+  private _fetchGymnast$: Observable<Gymnast[]> = this._gymnastDataService.gymasts$;
+  public loadingErrors$ = this._gymnastDataService.loadingError$;
+
   constructor(private _gymnastDataService: GymnastDataService){
-    this.filterGymnast$.subscribe(
-      val => this.filterGymnastName = val);
+    this.filterGymnast$
+    .pipe(
+      distinctUntilChanged(),
+      debounceTime(400),
+      map(val => val.toLowerCase()),
+      filter(val => !val.startsWith('s'))
+    )
+    .subscribe(val => (this.filterGymnastName = val));
   }
   
 
-  get gymnasts() : Gymnast[]{
-    return this._gymnastDataService.gymasts;
+  get gymnasts$() : Observable<Gymnast[]>{
+    return this._fetchGymnast$;
   }
 
   applyFilter(filter: string){
     this.filterGymnastName = filter;
   }
-  
-  public addGymnast(gymnast: Gymnast){
-    this._gymnastDataService.addNewGymnast(gymnast)
+
+  addNewGymnast(gymnast) {
+    this._gymnastDataService.addNewGymnast(gymnast).subscribe();
   }
+  
+  
 
 }

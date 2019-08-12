@@ -1,7 +1,7 @@
 import { Injury } from './injury.model';
 
 export class Gymnast {
-    private _id: Number;
+    private _id: number;
 
     constructor(
         private _firstName: string,
@@ -18,7 +18,7 @@ export class Gymnast {
     get email() { return this._email }
     get injuries() { return this._injuries }
 
-    set id(id: Number) { this._id = id; }
+    set id(id: number) { this._id = id; }
     set firstName(firstName: string) { this._firstName = firstName; }
     set lastName(lastName: string){this._lastName = lastName; }
     set birthDate(birthDate: Date){this._birthDate = birthDate;}
@@ -31,7 +31,20 @@ export class Gymnast {
       }
     
     static fromJSON(json: any): Gymnast {
-        const g = new Gymnast(json.firstName, json.lastName,json.birthDate, json.email, json.injuries);
+        const g = new Gymnast(json.firstname, json.lastname,json.birthDate, 
+            json.email, json.injuries.map(Injury.fromJson));
+        g._id = json.id;
         return g;
+    }
+
+     toJson(): any {
+        return {
+            id: this._id,
+            firstName: this._firstName,
+            lastName: this._lastName,
+            birthDate: this._birthDate,
+            email: this._email,
+            injuries: this.injuries.map(inj => inj.toJson())
+        }
     }
 }

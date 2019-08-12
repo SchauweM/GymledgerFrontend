@@ -1,27 +1,27 @@
 <div fxLayout="column" fxLayoutGap="2%">
-  <app-add-gymnast (newGymnast)="addGymnast($event)"></app-add-gymnast>
+  <app-add-gymnast></app-add-gymnast>
   <mat-card>
     <mat-form-field>
-      <input 
-      (keyup)="filterGymnast$.next($event.target.value)"
-      matInput 
-      placeholder="filter" type="text" #filter />
+      <input (keyup)="filterGymnast$.next($event.target.value)" matInput placeholder="filter" type="text" #filter />
     </mat-form-field>
-    
   </mat-card>
-<div
-  fxLayout="row wrap"
-  fxLayout.xs="column"
-  fxLayoutGap="0.5%"
-  fxLayoutAlign="start"
->
-  <div
-    class="gymnast"
-    *ngFor="let g of gymnasts | gymnastFilter: filterGymnastName"
-    fxFlex="0 0 calc(25%-0.5%)"
-    fxFlex.xs="100%"
-  >
-    <app-gymnast [gymnast]="g"></app-gymnast>
+  <div *ngIf="(gymnasts$ | async) as recipes; else loadingOrError">
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="start">
+      <div *ngFor="let g of (gymnasts$ | async | gymnastFilter: filterGymnastName)">
+        <app-gymnast [gymnast]="g"></app-gymnast>
+      </div>
+    </div>
   </div>
 </div>
-</div>
+
+<ng-template #loadingOrError>
+    <mat-card>
+      <mat-error *ngIf="(loadingErrors$ | async) as errorMessage; else loading">
+       Error loading the recipe list: {{ errorMessage }}. <br/>
+        Please try again later.
+      </mat-error>
+      <ng-template #loading>
+        <mat-spinner></mat-spinner>
+      </ng-template>
+    </mat-card>
+  </ng-template> 

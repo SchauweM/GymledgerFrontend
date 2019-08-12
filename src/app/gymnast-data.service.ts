@@ -1,22 +1,31 @@
 import { Injectable } from '@angular/core';
-import { GYMNASTS } from './mock-gymnasts';
 import { Gymnast } from './models/gymnast.model';
+import { HttpClient } from "@angular/common/http";
+import { Observable, Subject, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GymnastDataService {
-  private _gymnasts = GYMNASTS;
+  public loadingError$ = new Subject<string>();
 
+  constructor(private http: HttpClient) { }
 
-  constructor(){}
-
-  get gymasts(): Gymnast[]{
-    return this._gymnasts
+  get gymasts$(): Observable<Gymnast[]> {
+    return this.http.get(`${environment.apiUrl}/gymnast`).pipe(
+      catchError(error => {
+        this.loadingError$.next(error.statusText);
+        return of(null);
+      }),
+      map(
+        (list: any[]): Gymnast[] => list.map(Gymnast.fromJSON)
+      )
+    );
   }
 
-  addNewGymnast(gymnast : Gymnast){
-    this._gymnasts = [...this._gymnasts, gymnast];
+  addNewGymnast(gymnast: Gymnast){
+    return this.http.post(`${environment.apiUrl}/gymnast/`, gymnast.toJson);
   }
-  
 }

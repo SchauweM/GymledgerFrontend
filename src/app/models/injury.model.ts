@@ -36,5 +36,24 @@ export class Injury{
     set numerOfDays(numberOfDays: Number) {  this._numberOfDays = numberOfDays }
     
 
+    static fromJson(json: any): Injury {
+        const i = new Injury(json.bodyPart, json.currentScaleOfPain, json.description, 
+            json.startDate, json.endDate, json.note, json.notePerDay.map(NoteDay.fromJson), 
+            json.scalePerDay.map(ScaleDay.fromJson), json.aantalDagen);
+        return i;
+    }
 
+    toJson(): any {
+        return {
+            bodyPart: this._bodyPart,
+            currentScaleOfPain: this._currentScaleOfPain,
+            description: this._description,
+            startDate: this._startDate,
+            endDate: this._endDate,
+            note: this._note,
+            notePerDay: this._notePerDay.map(npd => npd.toJson()),
+            scalePerDay: this._scalePerDay.map(spd => spd.toJson()),
+            aantalDagen: this._numberOfDays
+        }
+    }
 }
