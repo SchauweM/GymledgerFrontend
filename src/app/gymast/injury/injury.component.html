@@ -1,0 +1,15 @@
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title><mat-icon>accessibility_new</mat-icon>  {{ injury.bodyPart }} - pijnschaal: {{ injury.currentScaleOfPain }}/10</mat-card-title>
+        <mat-card-subtitle>Started on {{ injury.startDate | date }}</mat-card-subtitle>
+        
+    </mat-card-header>
+    <mat-card-content>
+        <h3 mat-subheader>Notities</h3>
+        <mat-list>
+            <mat-list-item *ngFor="let notd of injury.notePerDay" >
+                <app-note-of-the-day [noteOfTheDay]="notd"></app-note-of-the-day>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>

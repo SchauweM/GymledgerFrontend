@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Injury } from 'src/app/models/injury.model';
+import { Injury } from 'src/app/gymast/injury.model';
 
 @Component({
   selector: 'app-injury',
@@ -7,7 +7,7 @@ import { Injury } from 'src/app/models/injury.model';
   styleUrls: ['./injury.component.css']
 })
 export class InjuryComponent implements OnInit {
-  @Input() injury: Injury;
+  @Input() public injury: Injury;
   constructor() { }
 
   ngOnInit() {

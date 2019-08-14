@@ -1,4 +1,4 @@
-import { Gymnast } from './gymnast.model';
+import { Gymnast } from '../gymast/gymnast.model';
 
 export class Team {
     constructor(

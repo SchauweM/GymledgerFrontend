@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Gymnast } from './models/gymnast.model';
+import { Gymnast } from './gymnast.model';
 
 @Pipe({
   name: 'gymnastFilter'

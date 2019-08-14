@@ -3,17 +3,21 @@ import { ScaleDay } from "./scaleDay.model";
 
 export class Injury{
     private _id: Number;
+    private _notePerDay: Array<NoteDay>;
+    private _scalePerDay: Array<ScaleDay>;
+    private _numberOfDays: Number;
+
     constructor(
         private _bodyPart: string,
         private _currentScaleOfPain: Number,
         private _description: string,
         private _startDate: Date,
         private _endDate: Date,
-        private _note: string,
-        private _notePerDay: Array<NoteDay>,
-        private _scalePerDay: Array<ScaleDay>,
-        private _numberOfDays: Number
-    ){}
+        private _note: string
+    ){
+        this._notePerDay = new Array<NoteDay>();
+        this._scalePerDay = new Array<ScaleDay>();
+    }
 
     get id() { return this._id }
     get bodyPart() { return this._bodyPart }
@@ -38,8 +42,12 @@ export class Injury{
 
     static fromJson(json: any): Injury {
         const i = new Injury(json.bodyPart, json.currentScaleOfPain, json.description, 
-            json.startDate, json.endDate, json.note, json.notePerDay.map(NoteDay.fromJson), 
-            json.scalePerDay.map(ScaleDay.fromJson), json.aantalDagen);
+            json.startDate, json.endDate, json.note);
+
+        i._id = json.id;
+        i._notePerDay = json.notePerDay.map(NoteDay.fromJson);
+        i._scalePerDay = json.scalePerDay.map(ScaleDay.fromJson);
+        i._numberOfDays = json.aantalDagen;
         return i;
     }
 

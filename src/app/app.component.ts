@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { Gymnast } from './models/gymnast.model';
-import { GymnastDataService } from './gymnast-data.service';
+import { Gymnast } from './gymast/gymnast.model';
+import { GymnastDataService } from './gymast/gymnast-data.service';
 import { Subject, Observable } from 'rxjs';
 import { distinctUntilChanged, debounceTime, map, filter } from 'rxjs/operators';
+import { Injury } from './gymast/injury.model';
 
 @Component({
   selector: 'app-root',
@@ -10,21 +11,23 @@ import { distinctUntilChanged, debounceTime, map, filter } from 'rxjs/operators'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public filterGymnastName: string;
-  public filterGymnast$ = new Subject<string>();
+  public filterInjuryName: string;
+  public filterInjuries$ = new Subject<string>();
 
   private _fetchGymnast$: Observable<Gymnast[]> = this._gymnastDataService.gymasts$;
+  private _fetchInjuries$: Observable<Injury[]> = this._gymnastDataService.injuries$;
+  
   public loadingErrors$ = this._gymnastDataService.loadingError$;
 
   constructor(private _gymnastDataService: GymnastDataService){
-    this.filterGymnast$
+    this.filterInjuries$
     .pipe(
       distinctUntilChanged(),
       debounceTime(400),
       map(val => val.toLowerCase()),
       filter(val => !val.startsWith('s'))
     )
-    .subscribe(val => (this.filterGymnastName = val));
+    .subscribe(val => (this.filterInjuryName = val));
   }
   
 
@@ -32,12 +35,16 @@ export class AppComponent {
     return this._fetchGymnast$;
   }
 
-  applyFilter(filter: string){
-    this.filterGymnastName = filter;
+  get injuries$() : Observable<Injury[]>{
+    return this._fetchInjuries$;
   }
 
-  addNewGymnast(gymnast) {
-    this._gymnastDataService.addNewGymnast(gymnast).subscribe();
+  applyFilter(filter: string){
+    this.filterInjuryName = filter;
+  }
+
+  addNewInjury(injury: Injury) {
+    this._gymnastDataService.addNewInjury(injury).subscribe();
   }
   
   

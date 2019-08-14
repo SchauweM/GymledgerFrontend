@@ -1,14 +1,14 @@
 <div fxLayout="column" fxLayoutGap="2%">
-  <app-add-gymnast></app-add-gymnast>
+  <app-add-injury (newInjury)="addNewInjury($event)"></app-add-injury>
   <mat-card>
     <mat-form-field>
-      <input (keyup)="filterGymnast$.next($event.target.value)" matInput placeholder="filter" type="text" #filter />
+      <input (keyup)="filterInjuries$.next($event.target.value)" matInput placeholder="filter" type="text" #filter />
     </mat-form-field>
   </mat-card>
-  <div *ngIf="(gymnasts$ | async) as recipes; else loadingOrError">
+  <div *ngIf="(injuries$ | async) as recipes; else loadingOrError">
     <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="start">
-      <div *ngFor="let g of (gymnasts$ | async | gymnastFilter: filterGymnastName)">
-        <app-gymnast [gymnast]="g"></app-gymnast>
+      <div *ngFor="let i of (injuries$ | async | injuryFilter: filterInjuryName)">
+        <app-injury [injury]="i"></app-injury>
       </div>
     </div>
   </div>
