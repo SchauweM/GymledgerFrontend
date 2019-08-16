@@ -1,0 +1,29 @@
+<div fxLayout="column" fxLayoutGap="2%">
+        <app-add-injury (newInjury)="addNewInjury($event)"></app-add-injury>
+        <mat-card>
+          <mat-form-field>
+            <input (keyup)="filterInjuries$.next($event.target.value)" matInput placeholder="filter" type="text" #filter 
+            data-cy="filterInput"
+            />
+          </mat-form-field>
+        </mat-card>
+        <div *ngIf="(injuries$ | async) as recipes; else loadingOrError">
+          <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="start">
+            <div *ngFor="let i of (injuries$ | async | injuryFilter: filterInjuryName)">
+              <app-injury data-cy="recipeCard" [injury]="i"></app-injury>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <ng-template #loadingOrError>
+          <mat-card>
+            <mat-error *ngIf="(loadingErrors$ | async) as errorMessage; else loading">
+             Error loading the recipe list: {{ errorMessage }}. <br/>
+              Please try again later.
+            </mat-error>
+            <ng-template #loading>
+              <mat-spinner></mat-spinner>
+            </ng-template>
+          </mat-card>
+        </ng-template> 

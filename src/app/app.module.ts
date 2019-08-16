@@ -18,7 +18,20 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InjuryFilterPipe } from './gymast/injury-filter.pipe';
 import { NoteOfTheDayComponent } from './gymast/note-of-the-day/note-of-the-day.component';
+import { InjuryListComponent } from './injury-list/injury-list.component';
+import { RouterModule, Routes } from '@angular/router';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import {PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+const appRoutes: Routes = [
+  { path: 'injury-list', component: InjuryComponent},
+  { path: 'add-injury', component: AddInjuryComponent },
+  { path: '', redirectTo: 'recipe-list', pathMatch: 'full'},
+
+];
 
 @NgModule({
   declarations: [
@@ -30,7 +43,10 @@ import { NoteOfTheDayComponent } from './gymast/note-of-the-day/note-of-the-day.
     TeamComponent,
     GymnastFilterPipe,
     InjuryFilterPipe,
-    NoteOfTheDayComponent
+    NoteOfTheDayComponent,
+    InjuryListComponent,
+    MainNavComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +63,12 @@ import { NoteOfTheDayComponent } from './gymast/note-of-the-day/note-of-the-day.
     MatButtonModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes),
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

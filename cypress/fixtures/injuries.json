@@ -1,0 +1,67 @@
+[
+    {
+      "id": 3,
+      "bodyPart": "Rechtervoet",
+      "currentScaleOfPain": 2,
+      "description": "Voet omgeslagen",
+      "startDate": "2018-11-20T00:00:00",
+      "endDate": "2019-07-01T00:00:00",
+      "notePerDay": [
+        {
+          "id": 1,
+          "note": "Pijn nog niet beter",
+          "day": "2018-11-23T00:00:00",
+          "injuryId": 3
+        },
+        {
+          "id": 2,
+          "note": "Kan er al een beetje op stappen",
+          "day": "2018-11-30T00:00:00",
+          "injuryId": 3
+        },
+        {
+          "id": 3,
+          "note": "Blessure volledig genezen",
+          "day": "2019-03-15T00:00:00",
+          "injuryId": 3
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "bodyPart": "Voorarmen",
+      "currentScaleOfPain": 8,
+      "description": "Aanhoudende pijn",
+      "startDate": "2019-04-10T00:00:00",
+      "endDate": null,
+      "notePerDay": []
+    },
+    {
+      "id": 5,
+      "bodyPart": "Achilles pees",
+      "currentScaleOfPain": 0,
+      "description": "Volledig doorgescheurd",
+      "startDate": "2015-10-31T00:00:00",
+      "endDate": "2016-06-20T00:00:00",
+      "notePerDay": [
+        {
+          "id": 4,
+          "note": "Pijn aan de beterhand.",
+          "day": "2016-07-20T00:00:00",
+          "injuryId": 5
+        },
+        {
+          "id": 5,
+          "note": "Weer iets meer pijn al de vorige keer.",
+          "day": "2016-08-15T00:00:00",
+          "injuryId": 5
+        },
+        {
+          "id": 6,
+          "note": "Blessure volledig genezen",
+          "day": "2017-05-15T00:00:00",
+          "injuryId": 5
+        }
+      ]
+    }
+  ]
