@@ -1,18 +1,46 @@
 <mat-card>
     <mat-card-title>Add Injury</mat-card-title>
     <mat-card-content>
-        <form [formGroup]="injury" (ngSubmit)='onSubmit()' >
+        <form [formGroup]="injury" (ngSubmit)='onSubmit()'>
             <mat-form-field>
-                <input 
-                matInput 
-                aria-label="name"
-                placeholder="name" 
-                type="text" 
-                formControlName="name" />
+                <input matInput aria-label="bodypart" placeholder="bodypart" type="text" formControlName="bodyPart" #spy
+                    required />
+                <mat-error *ngIf="injury.get('bodyPart')['errors'] && 
+                    injury.get('bodyPart').touched">
+                    {{ getErrorMessage(injury.get('bodyPart')['errors']) }}
+                </mat-error>
             </mat-form-field>
-            <button type="submit" mat-raised-button>
+            <mat-form-field class="b">
+                <input matInput aria-label="current scale of pain" placeholder="current scale of pain" type="number"
+                    formControlName="currentScaleOfPain" required />
+            </mat-form-field>
+            <mat-form-field class="b">
+                <input matInput aria-label="description" placeholder="description" type="text"
+                    formControlName="description" required />
+            </mat-form-field>
+            <mat-form-field class="b">
+                <input matInput aria-label="begindate" placeholder="begindate" type="date" formControlName="startDate"
+                    required />
+            </mat-form-field>
+            <mat-form-field class="b">
+                <input matInput aria-label="enddate" placeholder="enddate" type="date" formControlName="endDate" />
+            </mat-form-field>
+            <button class="b" type="submit" mat-raised-button [disabled]='!injury.valid'>
                 Add
             </button>
+
+            <div formArrayName="notePerDay" *ngFor="let item of injury.get('notePerDay')['controls']; let i = index">
+                <div [formGroupName]="i">
+                    <mat-form-field>
+                        <input matInput aria-label="note" placeholder="note" type="text" formControlName="note" />
+                    </mat-form-field>
+                    <mat-form-field class="b">
+                        <input matInput aria-label="date" placeholder="date" type="date" formControlName="day" />
+                    </mat-form-field>
+                </div>
+            </div>
+
+
         </form>
     </mat-card-content>
 </mat-card>

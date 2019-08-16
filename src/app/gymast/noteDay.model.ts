@@ -1,8 +1,9 @@
 export class NoteDay {
+    private _id: number;
+    private _injuryId: number;
     constructor(
         private _note: string,
         private _date: Date,
-        private _injuryId: number
     ){}
 
     get note() { return this._note}
@@ -12,14 +13,17 @@ export class NoteDay {
     set date(date: Date) {this._date = date}
 
     static fromJson(json: any): NoteDay {
-        const npd = new NoteDay(json.note, json.day, json.injuryId);
+        const npd = new NoteDay( json.note, json.day);
+        npd._id = json.id;
+        npd._injuryId = json.injuryId;
         return npd;
     }
 
     toJson(): any {
         return {
+            id: this._id,
             note: this._note,
-            date: this._date,
+            day: this._date,
             injuryId: this._injuryId
         }
     }
